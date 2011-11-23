@@ -25,7 +25,7 @@ Cell.prototype.nextState = function () {
             this.die();
         }
     // reproduction
-    } else if (n == 3) {
+    } else if (n === 3) {
         this.live();
     }
 };
