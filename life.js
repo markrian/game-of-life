@@ -14,13 +14,17 @@ Cell.prototype.nextState = function () {
         }
     }
     if (this.alive) {
+        // under-populated
         if (n < 2) {
             this.die();
+        // well-populated
         } else if (n < 4) {
             this.live();
+        // over-populated
         } else if (n >= 4) {
             this.die();
         }
+    // reproduction
     } else if (n == 3) {
         this.live();
     }
