@@ -51,7 +51,8 @@ function Game() {
 
 Game.prototype.init = function (width, height, wraps) {
     var x = 0,
-        y = 0;
+        y = 0,
+        self = this;
     this.height = height;
     this.width = width;
     // Create a 2D array: [ [], [], ... [], [] ]
@@ -64,6 +65,16 @@ Game.prototype.init = function (width, height, wraps) {
         }
         x += 1;
     }
+    this.onCells(function (cell, x, y) {
+        cell.neighbours.n = self.getCell(x, y + 1);
+        cell.neighbours.ne = self.getCell(x + 1, y + 1);
+        cell.neighbours.e = self.getCell(x + 1, y);
+        cell.neighbours.se = self.getCell(x + 1, y - 1);
+        cell.neighbours.s = self.getCell(x, y - 1);
+        cell.neighbours.sw = self.getCell(x - 1, y - 1);
+        cell.neighbours.w = self.getCell(x - 1, y);
+        cell.neighbours.nw = self.getCell(x - 1, y + 1);
+    });
 };
 
 Game.prototype.onCells = function (fn) {
@@ -74,7 +85,7 @@ Game.prototype.onCells = function (fn) {
     while (x < w) {
         y = 0
         while (y < h) {
-            fn(this.cells[x][y]);
+            fn(this.cells[x][y], x, y);
             y += 1;
         }
         x += 1;
