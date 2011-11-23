@@ -82,5 +82,5 @@ Game.prototype.onCells = function (fn) {
 };
 
 Game.prototype.getCell = function (x, y) {
-    return this.cells[x][y];
+    return x < this.width ? this.cells[x][y] : undefined;
 };
