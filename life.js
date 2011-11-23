@@ -41,3 +41,22 @@ Cell.prototype.die = function () {
 Cell.prototype.live = function () {
     this.aliveNext = true;
 };
+
+function Game() {
+    this.cells = [];
+    this.generation = 0;
+    this.init = function (width, height, wraps) {
+        var x = 0,
+            y = 0;
+        // Create a 2D array: [ [], [], ... [], [] ] 
+        while (x < width) {
+            if (!this.cells[x]) this.cells[x] = [];
+            y = 0;
+            while (y < height) {
+                this.cells[x].push(new Cell);
+                y += 1;
+            }
+            x += 1;
+        }
+    };
+}
