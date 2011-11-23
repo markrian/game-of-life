@@ -104,3 +104,11 @@ Game.prototype.onCells = function (fn) {
 Game.prototype.getCell = function (x, y) {
     return this.cells[x] ? this.cells[x][y] : undefined;
 };
+
+Game.prototype.tick = function () {
+    this.generation += 1;
+    this.onCells(function (cell) {
+        cell.nextState();
+        cell.age();
+    });
+};
