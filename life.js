@@ -15,17 +15,25 @@ Cell.prototype.nextState = function () {
     }
     if (this.alive) {
         if (n < 2) {
-            this.aliveNext = false;
+            this.die();
         } else if (n < 4) {
-            this.aliveNext = true;
+            this.live();
         } else if (n >= 4) {
-            this.aliveNext = false;
+            this.die();
         }
     } else if (n == 3) {
-        this.aliveNext = true;
+        this.live();
     }
 };
 
 Cell.prototype.age = function () {
     this.alive = this.aliveNext;
-}
+};
+
+Cell.prototype.die = function () {
+    this.aliveNext = false;
+};
+
+Cell.prototype.live = function () {
+    this.aliveNext = true;
+};
