@@ -43,20 +43,25 @@ Cell.prototype.live = function () {
 };
 
 function Game() {
+    this.height = 0;
+    this.width = 0;
     this.cells = [];
     this.generation = 0;
-    this.init = function (width, height, wraps) {
-        var x = 0,
-            y = 0;
-        // Create a 2D array: [ [], [], ... [], [] ] 
-        while (x < width) {
-            if (!this.cells[x]) this.cells[x] = [];
-            y = 0;
-            while (y < height) {
-                this.cells[x].push(new Cell);
-                y += 1;
-            }
-            x += 1;
-        }
-    };
 }
+
+Game.prototype.init = function (width, height, wraps) {
+    var x = 0,
+        y = 0;
+    this.height = height;
+    this.width = width;
+    // Create a 2D array: [ [], [], ... [], [] ]
+    while (x < width) {
+        if (!this.cells[x]) this.cells[x] = [];
+        y = 0;
+        while (y < height) {
+            this.cells[x].push(new Cell);
+            y += 1;
+        }
+        x += 1;
+    }
+};
