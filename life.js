@@ -65,3 +65,22 @@ Game.prototype.init = function (width, height, wraps) {
         x += 1;
     }
 };
+
+Game.prototype.onCells = function (fn) {
+    var w = this.width,
+        h = this.height,
+        x = 0,
+        y = 0;
+    while (x < w) {
+        y = 0
+        while (y < h) {
+            fn(this.cells[x][y]);
+            y += 1;
+        }
+        x += 1;
+    }
+};
+
+Game.prototype.getCell = function (x, y) {
+    return this.cells[x][y];
+};
