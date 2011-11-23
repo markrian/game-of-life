@@ -66,14 +66,23 @@ Game.prototype.init = function (width, height, wraps) {
         x += 1;
     }
     this.onCells(function (cell, x, y) {
-        cell.neighbours.n = self.getCell(x, y + 1);
-        cell.neighbours.ne = self.getCell(x + 1, y + 1);
-        cell.neighbours.e = self.getCell(x + 1, y);
-        cell.neighbours.se = self.getCell(x + 1, y - 1);
-        cell.neighbours.s = self.getCell(x, y - 1);
-        cell.neighbours.sw = self.getCell(x - 1, y - 1);
-        cell.neighbours.w = self.getCell(x - 1, y);
-        cell.neighbours.nw = self.getCell(x - 1, y + 1);
+        var cells = {
+                n: self.getCell(x, y + 1),
+                ne: self.getCell(x + 1, y + 1),
+                e: self.getCell(x + 1, y),
+                se: self.getCell(x + 1, y - 1),
+                s: self.getCell(x, y - 1),
+                sw: self.getCell(x - 1, y - 1),
+                w: self.getCell(x - 1, y),
+                nw: self.getCell(x - 1, y + 1)
+            },
+            key;
+        for (key in cells) {
+            if (!cells[key]) {
+                delete cells[key];
+            }
+        }
+        cell.neighbours = cells;
     });
 };
 
