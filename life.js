@@ -113,6 +113,20 @@ Game.prototype.tick = function () {
     });
 };
 
+Game.prototype.simpleDraw = function () {
+    var display = document.getElementById('display'),
+        pre = display.getElementsByTagName('pre')[0] || document.createElement('pre'),
+        w = this.width,
+        h = this.height,
+        string = '';
+    this.onCells(function (cell, x, y) {
+        if (y === 0 && x > 0) string += '\n';
+        string += +cell.alive;
+    });
+    pre.innerHTML = string;
+    if (!pre.parentNode) display.appendChild(pre);
+};
+
 Game.prototype.randomise = function () {
     this.onCells(function (cell) {
         cell.alive = Math.random() > 0.5 ? true : false;
