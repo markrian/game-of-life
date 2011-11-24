@@ -53,8 +53,8 @@ Game.prototype.init = function (width, height, wraps) {
     var x = 0,
         y = 0,
         self = this;
-    this.height = height;
-    this.width = width;
+    this.height = height || 10;
+    this.width = width || 10;
     this.wraps = wraps || false;
     // Create a 2D array: [ [], [], ... [], [] ]
     while (x < width) {
