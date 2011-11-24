@@ -55,6 +55,7 @@ Game.prototype.init = function (width, height, wraps) {
         self = this;
     this.height = height;
     this.width = width;
+    this.wraps = wraps || false;
     // Create a 2D array: [ [], [], ... [], [] ]
     while (x < width) {
         if (!this.cells[x]) this.cells[x] = [];
@@ -102,6 +103,20 @@ Game.prototype.onCells = function (fn) {
 };
 
 Game.prototype.getCell = function (x, y) {
+    var w = this.width,
+        h = this.height;
+    if (this.wraps) {
+        if (x < 0) {
+            x = w + (x % w);
+        } else {
+            x %= w;
+        }
+        if (y < 0) {
+            y = h + (y % h);
+        } else {
+            y %= h;
+        }
+    }
     return this.cells[x] ? this.cells[x][y] : undefined;
 };
 
