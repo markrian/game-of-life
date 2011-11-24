@@ -109,6 +109,8 @@ Game.prototype.tick = function () {
     this.generation += 1;
     this.onCells(function (cell) {
         cell.nextState();
+    });
+    this.onCells(function (cell) {
         cell.age();
     });
 };
