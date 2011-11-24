@@ -123,7 +123,7 @@ Game.prototype.simpleDraw = function () {
         string = '';
     this.onCells(function (cell, x, y) {
         if (y === 0 && x > 0) string += '\n';
-        string += +cell.alive;
+        string += cell.alive ? '\u2588' : ' ';
     });
     pre.innerHTML = string;
     if (!pre.parentNode) display.appendChild(pre);
