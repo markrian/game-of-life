@@ -149,3 +149,10 @@ Game.prototype.randomise = function () {
         cell.alive = Math.random() > 0.5 ? true : false;
     });
 };
+
+Game.prototype.reset = function (clear) {
+    this.generation = 0;
+    if (clear) this.onCells(function (cell) {
+        cell.alive = false;
+    });
+};
