@@ -112,3 +112,9 @@ Game.prototype.tick = function () {
         cell.age();
     });
 };
+
+Game.prototype.randomise = function () {
+    this.onCells(function (cell) {
+        cell.alive = Math.random() > 0.5 ? true : false;
+    });
+};
