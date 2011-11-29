@@ -93,7 +93,7 @@ Game.prototype.onCells = function (fn) {
         x = 0,
         y = 0;
     while (x < w) {
-        y = 0
+        y = 0;
         while (y < h) {
             fn(this.cells[x][y], x, y);
             y += 1;
