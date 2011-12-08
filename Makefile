@@ -1,6 +1,7 @@
 JS_ENGINE = $(shell which jslint)
 SRC_FILE = "life.js"
-JSLINT_FLAGS = --goodparts
+JSLINT_FLAGS = --goodparts \
+			   --indent 4
 
 lint:
 	@@if test ! -z ${JS_ENGINE}; then \
