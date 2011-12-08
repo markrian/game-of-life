@@ -10,41 +10,41 @@
 <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <div id="display">
-    </div>
-    <div id="controls">
-        <button type="button" id="start">Start simulation</button>
-        <button type="button" id="random">Randomise</button>
-        <button type="button" id="reset">Reset</button>
-    </div>
-    <script>
-        (function () {
-            var game = new Game(),
-                startButton = document.getElementById('start'),
-                randomButton = document.getElementById('random'),
-                resetButton = document.getElementById('reset'),
-                simulation;
-            game.init(40,120, true);
+	<div id="display">
+	</div>
+	<div id="controls">
+		<button type="button" id="start">Start simulation</button>
+		<button type="button" id="random">Randomise</button>
+		<button type="button" id="reset">Reset</button>
+	</div>
+	<script>
+		(function () {
+			var game = new Game(),
+				startButton = document.getElementById('start'),
+				randomButton = document.getElementById('random'),
+				resetButton = document.getElementById('reset'),
+				simulation;
+			game.init(40,120, true);
 
-            startButton.addEventListener('click', function () {
-                clearInterval(simulation);
-                simulation = setInterval(function () {
-                    game.simpleDraw();
-                    game.tick();
-                }, 50);
-            });
-            randomButton.addEventListener('click', function () {
-                game.randomise();
-                game.simpleDraw();
-            });
-            resetButton.addEventListener('click', function () {
-                clearInterval(simulation);
-                game.reset(true);
-                game.simpleDraw();
-            });
+			startButton.addEventListener('click', function () {
+				clearInterval(simulation);
+				simulation = setInterval(function () {
+					game.simpleDraw();
+					game.tick();
+				}, 50);
+			});
+			randomButton.addEventListener('click', function () {
+				game.randomise();
+				game.simpleDraw();
+			});
+			resetButton.addEventListener('click', function () {
+				clearInterval(simulation);
+				game.reset(true);
+				game.simpleDraw();
+			});
 
-            window.game = game;
-        })();
-    </script>
+			window.game = game;
+		})();
+	</script>
 </body>
 </html>
