@@ -25,24 +25,50 @@
 						return document.getElementById.call(document, arguments[0]);
 				},
 				startButton = $('start'),
+				pauseButton = $('pause'),
 				randomButton = $('random'),
 				resetButton = $('reset'),
+				running = false,
 				simulation;
 			game.init(40,120, true);
 
+			function startPause(value) {
+				if (value === "start") {
+					if (running) {
+						return;
+					} else {
+						simulation = setInterval(function () {
+							game.simpleDraw();
+							game.tick();
+						}, 50);
+						running = true;
+						startButton.style.display = "none";
+						pauseButton.style.display = "inline";
+					}
+				} else if (value === "pause") {
+					if (!running) {
+						return;
+					} else {
+						clearInterval(simulation);
+						running = false;
+						startButton.style.display = "inline";
+						pauseButton.style.display = "none";
+					}
+				}
+			}
+
 			startButton.addEventListener('click', function () {
-				clearInterval(simulation);
-				simulation = setInterval(function () {
-					game.simpleDraw();
-					game.tick();
-				}, 50);
+				startPause('start');
+			});
+			pauseButton.addEventListener('click', function () {
+				startPause('pause');
 			});
 			randomButton.addEventListener('click', function () {
 				game.randomise();
 				game.simpleDraw();
 			});
 			resetButton.addEventListener('click', function () {
-				clearInterval(simulation);
+				startPause('pause');
 				game.reset(true);
 				game.simpleDraw();
 			});
