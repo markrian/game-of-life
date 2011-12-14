@@ -58,10 +58,12 @@ Game.prototype.init = function (width, height, wraps) {
 	this.wraps = wraps || false;
 	// Create a 2D array: [ [], [], ... [], [] ]
 	while (x < width) {
-		if (!this.cells[x]) this.cells[x] = [];
+		if (!this.cells[x]) {
+			this.cells[x] = [];
+		}
 		y = 0;
 		while (y < height) {
-			this.cells[x].push(new Cell);
+			this.cells[x].push(new Cell());
 			y += 1;
 		}
 		x += 1;
@@ -137,11 +139,15 @@ Game.prototype.simpleDraw = function () {
 		h = this.height,
 		string = '';
 	this.onCells(function (cell, x, y) {
-		if (y === 0 && x > 0) string += '\n';
+		if (y === 0 && x > 0) {
+			string += '\n';
+		}
 		string += cell.alive ? '\u2588' : ' ';
 	});
 	pre.innerHTML = string;
-	if (!pre.parentNode) display.appendChild(pre);
+	if (!pre.parentNode) {
+		display.appendChild(pre);
+	}
 };
 
 Game.prototype.randomise = function () {
@@ -152,7 +158,9 @@ Game.prototype.randomise = function () {
 
 Game.prototype.reset = function (clear) {
 	this.generation = 0;
-	if (clear) this.onCells(function (cell) {
-		cell.alive = false;
-	});
+	if (clear) {
+		this.onCells(function (cell) {
+			cell.alive = false;
+		});
+	}
 };
