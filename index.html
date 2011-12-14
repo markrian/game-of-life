@@ -21,9 +21,12 @@
 	<script>
 		(function () {
 			var game = new Game(),
-				startButton = document.getElementById('start'),
-				randomButton = document.getElementById('random'),
-				resetButton = document.getElementById('reset'),
+				$ = function () {
+						return document.getElementById.call(document, arguments[0]);
+				},
+				startButton = $('start'),
+				randomButton = $('random'),
+				resetButton = $('reset'),
 				simulation;
 			game.init(40,120, true);
 
