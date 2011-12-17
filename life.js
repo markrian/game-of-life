@@ -1,5 +1,7 @@
 (function (window, undefined) {
 
+	var document = window.document;
+
 	function Cell() {
 		this.alive = false;
 		this.aliveNext = false;
