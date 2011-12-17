@@ -93,18 +93,19 @@
 		});
 	};
 
+	// Iterate through cells in the x-direction first, and then in the y-direction.
 	Game.prototype.onCells = function (fn) {
 		var w = this.width,
 			h = this.height,
 			x = 0,
 			y = 0;
-		while (x < w) {
-			y = 0;
-			while (y < h) {
+		while (y < h) {
+			x = 0;
+			while (x < w) {
 				fn(this.cells[x][y], x, y);
-				y += 1;
+				x += 1;
 			}
-			x += 1;
+			y += 1;
 		}
 	};
 
@@ -143,7 +144,7 @@
 			h = this.height,
 			string = '';
 		this.onCells(function (cell, x, y) {
-			if (y === 0 && x > 0) {
+			if (x === 0 && y > 0) {
 				string += '\n';
 			}
 			string += cell.alive ? '\u2588' : ' ';
