@@ -11,6 +11,7 @@
 </head>
 <body>
 	<div id="display">
+		<p>Generation <span id="generation">0</span></p>
 	</div>
 	<div id="controls">
 		<button type="button" id="start">Start simulation</button>
@@ -29,6 +30,7 @@
 				randomButton = $('random'),
 				resetButton = $('reset'),
 				running = false,
+				generation = $('generation'),
 				simulation;
 			game.init(120, 40, true);
 
@@ -39,6 +41,7 @@
 					} else {
 						simulation = setInterval(function () {
 							game.simpleDraw();
+							generation.innerHTML = game.generation;
 							game.tick();
 						}, 50);
 						running = true;
@@ -71,6 +74,7 @@
 				startPause('pause');
 				game.reset(true);
 				game.simpleDraw();
+				generation.innerHTML = game.generation;
 			});
 
 			window.game = game;
