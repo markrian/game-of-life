@@ -1,6 +1,6 @@
 (function (window, undefined) {
 
-	var document = window.document;
+	'use strict';
 
 	function Cell() {
 		this.alive = false;
