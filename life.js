@@ -170,6 +170,6 @@
 		}
 	};
 
-	window.Game = Game;
+	window.GameOfLife = Game;
 
 })(window);
