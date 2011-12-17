@@ -1,3 +1,5 @@
+(function (window, undefined) {
+
 function Cell() {
 	this.alive = false;
 	this.aliveNext = false;
@@ -164,3 +166,7 @@ Game.prototype.reset = function (clear) {
 		});
 	}
 };
+
+window.Game = Game;
+
+})(window);
