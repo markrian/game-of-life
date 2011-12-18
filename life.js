@@ -176,6 +176,9 @@
 		}
 	};
 
+	Game.prototype.setPattern = function (pattern, x, y) {
+	};
+
 	window.GameOfLife = Game;
 
 })(window);
