@@ -13,21 +13,26 @@
 			neighbour;
 		for (neighbour in this.neighbours) {
 			if (this.neighbours.hasOwnProperty(neighbour)) {
+
 				// If a neighbour is alive, then increment livingNeighbours by 1, otherwise, by 0.
 				n += +this.neighbours[neighbour].alive;
 			}
 		}
 		if (this.alive) {
+
 			// under-populated
 			if (n < 2) {
 				this.die();
+
 			// well-populated
 			} else if (n < 4) {
 				this.live();
+
 			// over-populated
 			} else if (n >= 4) {
 				this.die();
 			}
+
 		// reproduction
 		} else if (n === 3) {
 			this.live();
@@ -60,6 +65,7 @@
 		this.height = height || 10;
 		this.width = width || 10;
 		this.wraps = wraps || false;
+
 		// Create a 2D array: [ [], [], ... [], [] ]
 		while (x < width) {
 			if (!this.cells[x]) {
