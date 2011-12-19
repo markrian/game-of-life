@@ -1,5 +1,7 @@
 (function (window, undefined) {
+
 	var Game = window.GameOfLife;
+
 	Game.patterns = {
 		glider: [
 			[0, 1, 0],
