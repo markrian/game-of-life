@@ -8,6 +8,7 @@
 		this.neighbours = {};
 	}
 
+	// Inspects the cell's neighbours to see what the next state should be
 	Cell.prototype.nextState = function () {
 		var n = 0,
 			neighbour;
@@ -43,14 +44,17 @@
 		}
 	};
 
+	// Move to the prepared next state
 	Cell.prototype.age = function () {
 		this.alive = this.aliveNext;
 	};
 
+	// Make the cell dead in the next state
 	Cell.prototype.die = function () {
 		this.aliveNext = false;
 	};
 
+	// Make the cell alive in the next state
 	Cell.prototype.live = function () {
 		this.aliveNext = true;
 	};
@@ -62,6 +66,7 @@
 		this.generation = 0;
 	}
 
+	// Create the field, all the cells and their neighbours
 	Game.prototype.init = function (width, height, wraps) {
 		var x = 0,
 			y = 0,
@@ -119,6 +124,7 @@
 		}
 	};
 
+	// Return the cell at the given coordinates
 	Game.prototype.getCell = function (x, y) {
 		var w = this.width,
 			h = this.height;
@@ -137,6 +143,7 @@
 		return this.cells[x] ? this.cells[x][y] : undefined;
 	};
 
+	// Progress the game by one generation
 	Game.prototype.tick = function () {
 		this.generation += 1;
 		this.onCells(function (cell) {
@@ -147,6 +154,7 @@
 		});
 	};
 
+	// A very simple drawing function
 	Game.prototype.simpleDraw = function () {
 		var display = document.getElementById('display'),
 			pre = display.getElementsByTagName('pre')[0] || document.createElement('pre'),
@@ -165,12 +173,14 @@
 		}
 	};
 
+	// Randomise the current state of all the cells
 	Game.prototype.randomise = function () {
 		this.onCells(function (cell) {
 			cell.alive = Math.random() > 0.5 ? true : false;
 		});
 	};
 
+	// Reset the game's generation number. If clear is given, then also kill all the cells.
 	Game.prototype.reset = function (clear) {
 		this.generation = 0;
 		if (clear) {
