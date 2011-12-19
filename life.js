@@ -36,6 +36,10 @@
 		// reproduction
 		} else if (n === 3) {
 			this.live();
+
+		// If nothing else, make sure the cell is dead
+		} else {
+			this.die();
 		}
 	};
 
