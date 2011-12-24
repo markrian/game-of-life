@@ -2,6 +2,8 @@
 
 	'use strict';
 
+	var canvas, context;
+
 	function extend(target, source) {
 		var key;
 		for (key in source) {
@@ -189,6 +191,18 @@
 			if (!pre.parentNode) {
 				display.appendChild(pre);
 			}
+		},
+
+		// Canvas initialisation
+		canvasInit: function (width, height) {
+			canvas = document.createElement('canvas');
+			canvas.width = width;
+			canvas.height = height;
+			context = canvas.getContext('2d');
+		},
+
+		// Canvas drawing
+		canvasDraw: function () {
 		},
 
 		// Randomise the current state of all the cells
