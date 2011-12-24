@@ -11,6 +11,10 @@
 		}
 	}
 
+	function $() {
+		return document.getElementById.call(document, arguments[0]);
+	}
+
 	function Cell() {
 		this.alive = false;
 		this.aliveNext = false;
