@@ -174,7 +174,7 @@
 
 		// A very simple drawing function
 		simpleDraw: function () {
-			var display = document.getElementById('display'),
+			var display = $('display'),
 				pre = display.getElementsByTagName('pre')[0] || document.createElement('pre'),
 				w = this.width,
 				h = this.height,
