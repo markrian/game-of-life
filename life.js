@@ -232,6 +232,8 @@
 				context.restore();
 			}
 
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
 			context.save();
 
 			for (j = 0; j < high; j += 1) {
