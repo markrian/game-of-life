@@ -77,7 +77,7 @@
 						return;
 					} else {
 						simulation = setInterval(function () {
-							game.simpleDraw();
+							game.canvasDraw();
 							generation.innerHTML = game.generation;
 							game.tick();
 						}, 50);
@@ -117,6 +117,9 @@
 			// Intialise UI - I would use a method to trigger the 'change' event, like https://github.com/sstephenson/prototype/blob/master/src/prototype/dom/event.js#L956, but seems like overkill
 			modeChange();
 
+			// Initialise canvas
+			game.canvasInit(300, 300);
+
 			// Bind UI events to event handlers
 			$('mode').addEventListener('change', modeChange);
 			startButton.addEventListener('click', function () {
@@ -127,12 +130,12 @@
 			});
 			randomButton.addEventListener('click', function () {
 				game.randomise();
-				game.simpleDraw();
+				game.canvasDraw();
 			});
 			resetButton.addEventListener('click', function () {
 				startPause('pause');
 				game.reset(true);
-				game.simpleDraw();
+				game.canvasDraw();
 				generation.innerHTML = game.generation;
 			});
 
