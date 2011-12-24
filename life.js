@@ -11,8 +11,8 @@
 		}
 	}
 
-	function $() {
-		return document.getElementById.call(document, arguments[0]);
+	function $(id) {
+		return document.getElementById.call(document, id);
 	}
 
 	function Cell() {
