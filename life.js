@@ -236,6 +236,11 @@
 
 			context.save();
 
+			// Rotate the whole canvas around the centre
+			context.translate(canvas.width / 2, canvas.height / 2);
+			context.rotate(-Math.PI / 12);
+			context.translate(-w * wide / 2, -h * high / 2);
+
 			for (j = 0; j < high; j += 1) {
 				context.save();
 				for (i = 0; i < wide; i += 1) {
