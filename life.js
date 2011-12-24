@@ -211,4 +211,4 @@
 
 	window.GameOfLife = Game;
 
-})(window);
+})(this);
