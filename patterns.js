@@ -43,12 +43,13 @@
 			line = 0, // current line being processed in the pattern
 			w = pattern[0].length,
 			h = pattern.length,
-			W = w + 2 * padding,
-			H = h + 2 * padding;
+			W, H;
 
 		x = x || 0;
 		y = y || 0;
 		padding = padding || 0;
+		W = w + 2 * padding;
+		H = h + 2 * padding;
 
 		// Top padding
 		while (j < padding) {

@@ -203,10 +203,55 @@
 			canvas.width = width;
 			canvas.height = height;
 			context = canvas.getContext('2d');
+			$('display').appendChild(canvas);
 		},
 
 		// Canvas drawing
 		canvasDraw: function () {
+			var wide = this.width,
+				high = this.height,
+
+				// Width of each cell in pixels
+				w = canvas.width / wide,
+
+				// Height of each cell in pixels
+				h = canvas.height / high,
+
+				// Loop variables
+				i, j,
+
+				// Reference to the game instance
+				self = this;
+
+			function drawCell(x, y) {
+				var cell = self.getCell(x, y),
+					alive = cell.alive;
+				context.save();
+				context.fillStyle = alive ? 'green' : 'brown';
+				context.fillRect(0, 0, w, h);
+				context.restore();
+			}
+
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
+			context.save();
+
+			// Rotate the whole canvas around the centre
+			context.translate(canvas.width / 2, canvas.height / 2);
+			context.rotate(-Math.PI / 12);
+			context.translate(-w * wide / 2, -h * high / 2);
+
+			for (j = 0; j < high; j += 1) {
+				context.save();
+				for (i = 0; i < wide; i += 1) {
+					drawCell(i, j);
+					context.translate(w, 0);
+				}
+				context.restore();
+				context.translate(0, h);
+			}
+
+			context.restore();
 		},
 
 		// Randomise the current state of all the cells
