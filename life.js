@@ -82,6 +82,7 @@
 		this.width = 0;
 		this.cells = [];
 		this.generation = 0;
+		this.population = 0;
 	}
 
 	extend(Game.prototype, {
@@ -165,13 +166,16 @@
 
 		// Progress the game by one generation
 		tick: function () {
+			var population = 0;
 			this.generation += 1;
 			this.onCells(function (cell) {
 				cell.nextState();
 			});
 			this.onCells(function (cell) {
 				cell.age();
+				population += +cell.alive;
 			});
+			this.population = population;
 		},
 
 		// A very simple drawing function
