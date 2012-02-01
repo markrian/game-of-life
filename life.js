@@ -266,7 +266,7 @@
 		// Start a simulation
 		run: function (generationsPerSecond) {
 			var self = this,
-				dt = 1000 / generationsPerSecond;
+				dt = 1000 / (generationsPerSecond || this.rate);
 			if (running) {
 				return;
 			} else {
