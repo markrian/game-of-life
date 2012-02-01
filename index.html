@@ -14,14 +14,16 @@
 	<div id="display">
 	</div>
 	<script>
-		(function () {
+		(function (window) {
 			var game = new GameOfLife({
 				element: document.getElementById('display'),
 				width: 50,
 				height: 50,
 				rate: 10
 			});
-		})();
+
+			window.game = game;
+		})(this);
 	</script>
 </body>
 </html>
