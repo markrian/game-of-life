@@ -11,47 +11,7 @@
 <link href="style.css" rel="stylesheet">
 </head>
 <body>
-	<form id="controls">
-		<select id="mode">
-			<option value="defaults" selected="selected">Defaults</option>
-			<option value="presets">Presets...</option>
-			<option value="custom">Custom...</option>
-		</select>
-		<fieldset id="presets">
-			<legend>Pattern</legend>
-			<select>
-				<option selected="selected">Glider</option>
-				<option selected="selected">F-pentomino</option>
-				<option selected="selected">Diehard</option>
-				<option selected="selected">Gosper Glider Gun</option>
-			</select>
-		</fieldset>
-		<fieldset id="custom">
-			<legend>Settings</legend>
-			<label>Game width
-				<input id="game-width"/>
-			</label>
-			<label>Game height
-				<input id="game-height"/>
-			</label>
-			<label>View width
-				<input id="view-width"/>
-			</label>
-			<label>View height
-				<input id="view-height"/>
-			</label>
-		</fieldset>
-		<fieldset id="main-controls">
-			<legend>Controls</legend>
-			<button type="button" id="start">Start simulation</button>
-			<button type="button" id="pause">Pause simulation</button>
-			<button type="button" id="random">Randomise</button>
-			<button type="button" id="reset">Reset</button>
-			<div id="rate"></div>
-		</fieldset>
-	</div>
 	<div id="display">
-		<p>Generation <span id="generation">0</span></p>
 	</div>
 	<script>
 		(function () {
