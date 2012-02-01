@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var canvas, context;
+	var canvas, context, simulation, running;
 
 	function extend(target, source) {
 		var key;
@@ -77,12 +77,17 @@
 		}
 	});
 
-	function Game() {
-		this.height = 0;
-		this.width = 0;
+	// Main constructor for the game of life
+	function Game(options) {
+
+		// Default properties for the game object
+		this.height = 25;
+		this.width = 25;
 		this.cells = [];
 		this.generation = 0;
 		this.population = 0;
+		this.wraps = true;
+		this.rate = 5;
 	}
 
 	extend(Game.prototype, {
@@ -92,9 +97,6 @@
 			var x = 0,
 				y = 0,
 				self = this;
-			this.height = height || 10;
-			this.width = width || 10;
-			this.wraps = wraps || false;
 
 			// Create a 2D array: [ [], [], ... [], [] ]
 			while (x < width) {
@@ -180,7 +182,7 @@
 
 		// A very simple drawing function
 		simpleDraw: function () {
-			var display = $('display'),
+			var display = this.element,
 				pre = display.getElementsByTagName('pre')[0] || document.createElement('pre'),
 				w = this.width,
 				h = this.height,
@@ -203,7 +205,7 @@
 			canvas.width = width;
 			canvas.height = height;
 			context = canvas.getContext('2d');
-			$('display').appendChild(canvas);
+			this.element.appendChild(canvas);
 		},
 
 		// Canvas drawing
@@ -261,6 +263,31 @@
 			});
 		},
 
+		// Start a simulation
+		run: function (generationsPerSecond) {
+			var self = this,
+				dt = 1000 / generationsPerSecond;
+			if (running) {
+				return;
+			} else {
+				simulation = setInterval(function () {
+					self.canvasDraw();
+					self.tick();
+				}, dt);
+				running = true;
+			}
+		},
+
+		// Pause a running simuation
+		pause: function () {
+			if (!running) {
+				return;
+			} else {
+				clearInterval(simulation);
+				running = false;
+			}
+		},
+
 		// Reset the game's generation number. If clear is given, then also kill all the cells.
 		reset: function (clear) {
 			this.generation = 0;
@@ -272,6 +299,20 @@
 		}
 	});
 
-	window.GameOfLife = Game;
+	window.GameOfLife = function (options) {
+
+		// The element that should contain the game display has to be specified
+		if (!options || !options.element) {
+			throw "You must specify the element in which to display the game.";
+		}
+
+		var game = new Game();
+		extend(game, options);
+		game.init(game.width, game.height, game.wraps);
+		game.randomise();
+		game.canvasInit(250, 250);
+		game.run(game.rate);
+		return game;
+	};
 
 })(this);

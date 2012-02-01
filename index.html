@@ -11,135 +11,16 @@
 <link href="style.css" rel="stylesheet">
 </head>
 <body>
-	<form id="controls">
-		<select id="mode">
-			<option value="defaults" selected="selected">Defaults</option>
-			<option value="presets">Presets...</option>
-			<option value="custom">Custom...</option>
-		</select>
-		<fieldset id="presets">
-			<legend>Pattern</legend>
-			<select>
-				<option selected="selected">Glider</option>
-				<option selected="selected">F-pentomino</option>
-				<option selected="selected">Diehard</option>
-				<option selected="selected">Gosper Glider Gun</option>
-			</select>
-		</fieldset>
-		<fieldset id="custom">
-			<legend>Settings</legend>
-			<label>Game width
-				<input id="game-width"/>
-			</label>
-			<label>Game height
-				<input id="game-height"/>
-			</label>
-			<label>View width
-				<input id="view-width"/>
-			</label>
-			<label>View height
-				<input id="view-height"/>
-			</label>
-		</fieldset>
-		<fieldset id="main-controls">
-			<legend>Controls</legend>
-			<button type="button" id="start">Start simulation</button>
-			<button type="button" id="pause">Pause simulation</button>
-			<button type="button" id="random">Randomise</button>
-			<button type="button" id="reset">Reset</button>
-			<div id="rate"></div>
-		</fieldset>
-	</div>
 	<div id="display">
-		<p>Generation <span id="generation">0</span></p>
 	</div>
 	<script>
 		(function () {
-			var game = new GameOfLife(),
-				$ = function () {
-						return document.getElementById.call(document, arguments[0]);
-				},
-				startButton = $('start'),
-				pauseButton = $('pause'),
-				randomButton = $('random'),
-				resetButton = $('reset'),
-				gameDimensions = [],
-				viewDimensions = [],
-				mode = "Defaults",
-				running = false,
-				generation = $('generation'),
-				simulation;
-			game.init(30, 30, true);
-
-			function startPause(value) {
-				if (value === "start") {
-					if (running) {
-						return;
-					} else {
-						simulation = setInterval(function () {
-							game.canvasDraw();
-							generation.innerHTML = game.generation;
-							game.tick();
-						}, 50);
-						running = true;
-						startButton.style.display = "none";
-						pauseButton.style.display = "inline";
-					}
-				} else if (value === "pause") {
-					if (!running) {
-						return;
-					} else {
-						clearInterval(simulation);
-						running = false;
-						startButton.style.display = "inline";
-						pauseButton.style.display = "none";
-					}
-				}
-			}
-
-			function modeChange(event) {
-				var el = $('mode'), control,
-				mode = el.value,
-				controls = {
-					presets: $('presets'),
-					custom:  $('custom')
-				};
-
-				for (control in controls) {
-					controls[control].style.display = 'none';
-				}
-
-				if (mode in controls) {
-					controls[mode].style.display = 'block';
-				}
-			}
-
-			// Intialise UI - I would use a method to trigger the 'change' event, like https://github.com/sstephenson/prototype/blob/master/src/prototype/dom/event.js#L956, but seems like overkill
-			modeChange();
-
-			// Initialise canvas
-			game.canvasInit(300, 300);
-
-			// Bind UI events to event handlers
-			$('mode').addEventListener('change', modeChange);
-			startButton.addEventListener('click', function () {
-				startPause('start');
+			var game = new GameOfLife({
+				element: document.getElementById('display'),
+				width: 50,
+				height: 50,
+				rate: 10
 			});
-			pauseButton.addEventListener('click', function () {
-				startPause('pause');
-			});
-			randomButton.addEventListener('click', function () {
-				game.randomise();
-				game.canvasDraw();
-			});
-			resetButton.addEventListener('click', function () {
-				startPause('pause');
-				game.reset(true);
-				game.canvasDraw();
-				generation.innerHTML = game.generation;
-			});
-
-			window.game = game;
 		})();
 	</script>
 </body>
