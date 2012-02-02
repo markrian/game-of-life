@@ -1,0 +1,7 @@
+ - Add options:
+  - colours
+  - rotation
+ - Add function to get cell from mouse position, with callback support
+ - Add smooth animation transitions from generation to generation
+ - Make canvas the only drawing method
+ - Add classes property to GameOfLife class so that the underlying classes can be accessed for custom work
