@@ -268,6 +268,8 @@
 			var self = this,
 				dt = 1000 / (generationsPerSecond || this.rate);
 			if (running) {
+				this.pause();
+				this.run(generationsPerSecond);
 				return;
 			} else {
 				simulation = setInterval(function () {
