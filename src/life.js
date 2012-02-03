@@ -83,6 +83,7 @@
 		// Default properties for the game object
 		this.height = 25;
 		this.width = 25;
+		this.angle = 0;
 		this.cells = [];
 		this.generation = 0;
 		this.population = 0;
@@ -240,7 +241,7 @@
 
 			// Rotate the whole canvas around the centre
 			context.translate(canvas.width / 2, canvas.height / 2);
-			context.rotate(-Math.PI / 12);
+			context.rotate(this.angle);
 			context.translate(-w * wide / 2, -h * high / 2);
 
 			for (j = 0; j < high; j += 1) {
