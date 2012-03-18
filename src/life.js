@@ -281,7 +281,6 @@
 
 	window.GameOfLife = function (options) {
 
-		// The element that should contain the game display has to be specified
 		if (!options || !options.element) {
 			throw "You must specify the element in which to display the game.";
 		}
