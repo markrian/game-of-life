@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Game of Life Performance Test</title>
+<script src="../src/life.js"></script>
+<script src="../src/patterns.js"></script>
+<script src="../vendor/benchmark.js"></script>
+</head>
+<body>
+	<div id="results"></div>
+	<script>
+		var results = document.getElementById('results');
+
+		function log(value) {
+			var result = document.createElement('p');
+			result.textContent = value;
+
+			results.appendChild(result);
+		}
+
+		var suite = new Benchmark.Suite();
+
+		suite.add('loop', function() {
+			var str = '';
+			for (var i = 0; i < 1024; i += 1) {
+				str += 'str';
+			}
+		})
+		.add('on itself', function () {
+			var str = 'str';
+			while (str.length < 3 * 1024) {
+				str += str;
+			}
+		})
+		.on('cycle', function(event, bench) {
+			log(String(bench));
+		})
+		.on('complete', function() {
+			log('Fastest is ' + this.filter('fastest').pluck('name'));
+		})
+		.run({
+			'async': true
+		});
+	</script>
+</body>
+</html>
