@@ -5,43 +5,53 @@
 <title>Game of Life Performance Test</title>
 <script src="../src/life.js"></script>
 <script src="../src/patterns.js"></script>
-<script src="../vendor/benchmark.js"></script>
 </head>
 <body>
 	<div id="results"></div>
+	<div id="display">
+	</div>
 	<script>
-		var results = document.getElementById('results');
+		var TEST_DURATION = 5000,
+			TARGET_GPS = 100;
 
-		function log(value) {
-			var result = document.createElement('p');
-			result.textContent = value;
-
-			results.appendChild(result);
+		function $(selector) {
+			return document.querySelectorAll(selector);
 		}
 
-		var suite = new Benchmark.Suite();
+		function log(text) {
+			var item = document.createElement("div");
 
-		suite.add('loop', function() {
-			var str = '';
-			for (var i = 0; i < 1024; i += 1) {
-				str += 'str';
-			}
-		})
-		.add('on itself', function () {
-			var str = 'str';
-			while (str.length < 3 * 1024) {
-				str += str;
-			}
-		})
-		.on('cycle', function(event, bench) {
-			log(String(bench));
-		})
-		.on('complete', function() {
-			log('Fastest is ' + this.filter('fastest').pluck('name'));
-		})
-		.run({
-			'async': true
+			item.innerHTML = text;
+
+			$("#results")[0].appendChild(item);
+		}
+
+		function test() {
+			game.pause();
+
+			var generationsPerSecond,
+				cellsPerSecond;
+
+			generationsPerSecond = 1000 * game.generation / TEST_DURATION;
+			cellsPerSecond = game.width * game.height * generationsPerSecond;
+
+			log("Grid size: " + game.width + " \u00d7 " + game.height);
+			log("Total cells: " + (game.width * game.height));
+			log("Test duration: " + (TEST_DURATION / 1000) + " seconds");
+			log("Generation reached: " + game.generation);
+			log("Generations per second: " + generationsPerSecond + " (target: " + TARGET_GPS + ")");
+			log("Cells per second: " + cellsPerSecond);
+		}
+
+		var game = new GameOfLife({
+			element: document.getElementById('display'),
+			width: 50,
+			height: 50,
+			angle: -Math.PI / 12,
+			rate: TARGET_GPS
 		});
+
+		setTimeout(test, TEST_DURATION);
 	</script>
 </body>
 </html>
