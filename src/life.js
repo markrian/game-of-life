@@ -177,25 +177,6 @@
 			this.population = population;
 		},
 
-		// A very simple drawing function
-		simpleDraw: function () {
-			var display = this.element,
-				pre = display.getElementsByTagName('pre')[0] || document.createElement('pre'),
-				w = this.width,
-				h = this.height,
-				string = '';
-			this.onCells(function (cell, x, y) {
-				if (x === 0 && y > 0) {
-					string += '\n';
-				}
-				string += cell.alive ? '\u2588' : ' ';
-			});
-			pre.innerHTML = string;
-			if (!pre.parentNode) {
-				display.appendChild(pre);
-			}
-		},
-
 		// Canvas initialisation
 		canvasInit: function (width, height) {
 			canvas = document.createElement('canvas');
