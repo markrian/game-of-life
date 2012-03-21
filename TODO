@@ -9,3 +9,7 @@
  - Add ability to adjust the centre of where to draw the field. This way, could track a spaceship, or gliders!
  - Performance improvements:
   - Add function getVisibleCells. With this, can draw only those cells which are visible in the canvas. Would probably benefit by calculating the transformation matrix to get out-of-field cells (i.e., wrapped cells) that would get drawn
+  - Possibly useful methods: drawRegion
+  - getCellsFromBounds
+  - isCellInBounds
+  - Where bounds are two points, which define a rectangular region
