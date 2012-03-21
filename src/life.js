@@ -206,10 +206,8 @@
 			function drawCell(x, y) {
 				var cell = self.getCell(x, y),
 					alive = cell.alive;
-				context.save();
 				context.fillStyle = alive ? 'green' : 'brown';
 				context.fillRect(0, 0, w, h);
-				context.restore();
 			}
 
 			context.clearRect(0, 0, canvas.width, canvas.height);
