@@ -85,7 +85,7 @@
 		this.generation = 0;
 		this.population = 0;
 		this.wraps = true;
-		this.rate = 5;
+		this.rate = 10;
 	}
 
 	extend(Game.prototype, {

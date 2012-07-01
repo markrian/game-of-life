@@ -8,13 +8,12 @@
 <script src="src/patterns.js"></script>
 </head>
 <body>
-	<div id="display" style="width: 80px; height: 800px;">
+	<div id="display" style="width: 250px; height: 250px;">
 	</div>
 	<script>
 		(function (window) {
 			var game = new GameOfLife({
-				element: document.getElementById('display'),
-				rate: 10
+				element: document.getElementById('display')
 			});
 
 			window.game = game;
