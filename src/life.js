@@ -193,10 +193,10 @@
 				high = this.high,
 
 				// Width of each cell in pixels
-				w = canvas.width / wide,
+				w = Math.ceil(canvas.width / wide),
 
 				// Height of each cell in pixels
-				h = canvas.height / high,
+				h = Math.ceil(canvas.height / high),
 
 				// Loop variables
 				i, j,
@@ -285,8 +285,12 @@
 		}
 
 		var game = new Game(),
-			width = options.element.offsetWidth,
-			height = options.element.offsetHeight;
+			width = options.element.offsetWidth || 200,
+			height = options.element.offsetHeight || 150;
+
+		game.high = Math.ceil(Math.sqrt(game.size * height / width));
+		game.wide = Math.ceil(game.high * width / height);
+
 		extend(game, options);
 		game.init(game.wide, game.high, game.wraps);
 		game.randomise();
