@@ -2,8 +2,6 @@
 
 	'use strict';
 
-	var canvas, context, simulation, running;
-
 	function extend(target, source) {
 		var key;
 		for (key in source) {
@@ -77,31 +75,32 @@
 	function Game(options) {
 
 		// Default properties for the game object
-		this.height = 25;
-		this.width = 25;
+		this.high = 20;
+		this.wide = 20;
+		this.size = this.wide * this.high;
 		this.angle = 0;
 		this.cells = [];
 		this.generation = 0;
 		this.population = 0;
 		this.wraps = true;
-		this.rate = 5;
+		this.rate = 10;
 	}
 
 	extend(Game.prototype, {
 
 		// Create the field, all the cells and their neighbours
-		init: function (width, height, wraps) {
+		init: function (wide, high, wraps) {
 			var x = 0,
 				y = 0,
 				self = this;
 
 			// Create a 2D array: [ [], [], ... [], [] ]
-			while (x < width) {
+			while (x < wide) {
 				if (!this.cells[x]) {
 					this.cells[x] = [];
 				}
 				y = 0;
-				while (y < height) {
+				while (y < high) {
 					this.cells[x].push(new Cell());
 					y += 1;
 				}
@@ -130,8 +129,8 @@
 
 		// Iterate through cells in the x-direction first, and then in the y-direction.
 		onCells: function (fn) {
-			var w = this.width,
-				h = this.height,
+			var w = this.wide,
+				h = this.high,
 				x = 0,
 				y = 0;
 			while (y < h) {
@@ -146,8 +145,8 @@
 
 		// Return the cell at the given coordinates
 		getCell: function (x, y) {
-			var w = this.width,
-				h = this.height;
+			var w = this.wide,
+				h = this.high;
 			if (this.wraps) {
 				if (x < 0) {
 					x = w + (x % w);
@@ -179,23 +178,23 @@
 
 		// Canvas initialisation
 		canvasInit: function (width, height) {
-			canvas = document.createElement('canvas');
-			canvas.width = width;
-			canvas.height = height;
-			context = canvas.getContext('2d');
-			this.element.appendChild(canvas);
+			this.canvas = document.createElement('canvas');
+			this.canvas.width = width;
+			this.canvas.height = height;
+			this.context = this.canvas.getContext('2d');
+			this.element.appendChild(this.canvas);
 		},
 
 		// Canvas drawing
 		canvasDraw: function () {
-			var wide = this.width,
-				high = this.height,
+			var wide = this.wide,
+				high = this.high,
 
 				// Width of each cell in pixels
-				w = canvas.width / wide,
+				w = Math.ceil(this.canvas.width / wide),
 
 				// Height of each cell in pixels
-				h = canvas.height / high,
+				h = Math.ceil(this.canvas.height / high),
 
 				// Loop variables
 				i, j,
@@ -206,30 +205,30 @@
 			function drawCell(x, y) {
 				var cell = self.getCell(x, y),
 					alive = cell.alive;
-				context.fillStyle = alive ? 'green' : 'brown';
-				context.fillRect(0, 0, w, h);
+				self.context.fillStyle = alive ? 'green' : 'brown';
+				self.context.fillRect(0, 0, w, h);
 			}
 
-			context.clearRect(0, 0, canvas.width, canvas.height);
+			this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-			context.save();
+			this.context.save();
 
 			// Rotate the whole canvas around the centre
-			context.translate(canvas.width / 2, canvas.height / 2);
-			context.rotate(this.angle);
-			context.translate(-w * wide / 2, -h * high / 2);
+			this.context.translate(this.canvas.width / 2, this.canvas.height / 2);
+			this.context.rotate(this.angle);
+			this.context.translate(-w * wide / 2, -h * high / 2);
 
 			for (j = 0; j < high; j += 1) {
-				context.save();
+				this.context.save();
 				for (i = 0; i < wide; i += 1) {
 					drawCell(i, j);
-					context.translate(w, 0);
+					this.context.translate(w, 0);
 				}
-				context.restore();
-				context.translate(0, h);
+				this.context.restore();
+				this.context.translate(0, h);
 			}
 
-			context.restore();
+			this.context.restore();
 		},
 
 		// Randomise the current state of all the cells
@@ -243,26 +242,26 @@
 		run: function (generationsPerSecond) {
 			var self = this,
 				dt = 1000 / (generationsPerSecond || this.rate);
-			if (running) {
+			if (this.running) {
 				this.pause();
 				this.run(generationsPerSecond);
 				return;
 			} else {
-				simulation = setInterval(function () {
+				this.simulation = setInterval(function () {
 					self.canvasDraw();
 					self.tick();
 				}, dt);
-				running = true;
+				this.running = true;
 			}
 		},
 
 		// Pause a running simuation
 		pause: function () {
-			if (!running) {
+			if (!this.running) {
 				return;
 			} else {
-				clearInterval(simulation);
-				running = false;
+				clearInterval(this.simulation);
+				this.running = false;
 			}
 		},
 
@@ -283,11 +282,17 @@
 			throw "You must specify the element in which to display the game.";
 		}
 
-		var game = new Game();
+		var game = new Game(),
+			width = options.element.offsetWidth || 200,
+			height = options.element.offsetHeight || 150;
+
+		game.high = Math.ceil(Math.sqrt(game.size * height / width));
+		game.wide = Math.ceil(game.high * width / height);
+
 		extend(game, options);
-		game.init(game.width, game.height, game.wraps);
+		game.init(game.wide, game.high, game.wraps);
 		game.randomise();
-		game.canvasInit(250, 250);
+		game.canvasInit(width, height);
 		game.run(game.rate);
 		return game;
 	};

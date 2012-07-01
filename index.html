@@ -33,15 +33,30 @@
 		</div>
 		<script>
 			(function (window) {
-				var game = new GameOfLife({
-					element: document.getElementById('display'),
-					width: 50,
-					height: 50,
-					angle: -Math.PI / 12,
-					rate: 10
+				var panes = Array.prototype.slice.call(document.querySelectorAll(".pane")),
+					games = [];
+
+				panes.forEach(function (pane) {
+					var game = new GameOfLife({
+						element: pane
+					});
+
+					pane.querySelector(".stop-start").addEventListener("click", function (event) {
+						var running = game.running;
+
+						if (running) {
+							game.pause();
+							this.textContent = "Start";
+						} else {
+							game.run();
+							this.textContent = "Stop";
+						}
+					}, false);
+
+					games.push(game);
 				});
 
-				window.game = game;
+				window.games = games;
 			})(this);
 		</script>
 	</body>
