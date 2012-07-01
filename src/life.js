@@ -283,11 +283,13 @@
 			throw "You must specify the element in which to display the game.";
 		}
 
-		var game = new Game();
+		var game = new Game(),
+			elWidth = options.element.offsetWidth,
+			elHeight = options.element.offsetHeight;
 		extend(game, options);
 		game.init(game.width, game.height, game.wraps);
 		game.randomise();
-		game.canvasInit(250, 250);
+		game.canvasInit(elWidth, elHeight);
 		game.run(game.rate);
 		return game;
 	};
