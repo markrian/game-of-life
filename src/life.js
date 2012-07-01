@@ -285,12 +285,12 @@
 		}
 
 		var game = new Game(),
-			elWidth = options.element.offsetWidth,
-			elHeight = options.element.offsetHeight;
+			width = options.element.offsetWidth,
+			height = options.element.offsetHeight;
 		extend(game, options);
 		game.init(game.wide, game.high, game.wraps);
 		game.randomise();
-		game.canvasInit(elWidth, elHeight);
+		game.canvasInit(width, height);
 		game.run(game.rate);
 		return game;
 	};
