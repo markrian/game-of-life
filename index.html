@@ -1,23 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8" />
-<title>Game of Life</title>
-<link href="style.css" rel="stylesheet">
-<script src="src/life.js"></script>
-<script src="src/patterns.js"></script>
-</head>
-<body>
-	<div id="display" style="width: 250px; height: 250px;">
-	</div>
-	<script>
-		(function (window) {
-			var game = new GameOfLife({
-				element: document.getElementById('display')
-			});
+	<head>
+		<meta charset=utf-8 />
+		<title>Game of Life</title>
+		<link rel="stylesheet/less" href="style.less" type="text/css"/>
+		<script src="lib/less.min.js"></script>
+		<script src="src/life.js"></script>
+		<script src="src/patterns.js"></script>
+	</head>
+	<body>
+		<div class="panes">
+			<div class="pane top">
+				<div class="controls">
+					<button type="button" class="stop-start">Stop</button>
+				</div>
+			</div>
+			<div class="pane left">
+				<div class="controls">
+					<button type="button" class="stop-start">Stop</button>
+				</div>
+			</div>
+			<div class="pane right">
+				<div class="controls">
+					<button type="button" class="stop-start">Stop</button>
+				</div>
+			</div>
+			<div class="pane bottom">
+				<div class="controls">
+					<button type="button" class="stop-start">Stop</button>
+				</div>
+			</div>
+		</div>
+		<script>
+			(function (window) {
+				var panes = Array.prototype.slice.call(document.querySelectorAll(".pane")),
+					games = [];
 
-			window.game = game;
-		})(this);
-	</script>
-</body>
+				panes.forEach(function (pane) {
+					var game = new GameOfLife({
+						element: pane
+					});
+
+					pane.querySelector(".stop-start").addEventListener("click", function (event) {
+						var running = game.running;
+
+						if (running) {
+							game.pause();
+							this.textContent = "Start";
+						} else {
+							game.run();
+							this.textContent = "Stop";
+						}
+					}, false);
+
+					games.push(game);
+				});
+
+				window.games = games;
+			})(this);
+		</script>
+	</body>
 </html>

@@ -1,0 +1,72 @@
+@paneRatio: 3 / 4;
+@paneWidth: 400px;
+@paneHeight: @paneWidth * @paneRatio;
+
+.panes {
+	-moz-perspective: 1000px;
+	-moz-perspective-origin: @paneWidth @paneHeight;
+	-moz-transform-style: preserve-3d;
+}
+
+.pane {
+	width: @paneWidth;
+	height: @paneHeight;
+	background: silver;
+	position: absolute;
+	-moz-transition: all 0.5s ease;
+	box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
+
+	&.top {
+		-moz-transform: rotate3d(1, 0, 0, -45deg);
+		-moz-transform-origin: 0 -50%;
+		top: 0;
+		left: @paneWidth / 2;
+	}
+
+	&.left {
+		-moz-transform: rotate3d(0, 1, 0, 45deg);
+		-moz-transform-origin: -50% 0;
+		top: @paneHeight / 2;
+		left: 0;
+	}
+
+	&.right {
+		-moz-transform: rotate3d(0, 1, 0, -45deg);
+		-moz-transform-origin: 150% 0;
+		top: @paneHeight / 2;
+		left: @paneWidth;
+	}
+
+	&.bottom {
+		-moz-transform: rotate3d(1, 0, 0, 45deg);
+		-moz-transform-origin: 0 150%;
+		left: @paneWidth / 2;
+		top: @paneHeight;
+	}
+
+	.controls {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		opacity: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		-moz-transition: all 0.5s ease;
+
+		&:hover {
+			opacity: 1;
+			-moz-transition: all 0.5s ease;
+		}
+
+		* {
+			margin: 10px;
+			float: right;
+		}
+	}
+
+	&:hover {
+		-moz-transform: none;
+		-moz-transition: all 0.5s ease;
+		z-index: 1;
+		box-shadow: 0px 50px 30px 10px rgba(0,0,0,0.1);
+	}
+}
