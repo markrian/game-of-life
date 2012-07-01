@@ -77,8 +77,9 @@
 	function Game(options) {
 
 		// Default properties for the game object
-		this.high = 25;
-		this.wide = 25;
+		this.high = 20;
+		this.wide = 20;
+		this.size = this.wide * this.high;
 		this.angle = 0;
 		this.cells = [];
 		this.generation = 0;
