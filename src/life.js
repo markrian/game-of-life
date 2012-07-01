@@ -77,8 +77,8 @@
 	function Game(options) {
 
 		// Default properties for the game object
-		this.height = 25;
-		this.width = 25;
+		this.high = 25;
+		this.wide = 25;
 		this.angle = 0;
 		this.cells = [];
 		this.generation = 0;
@@ -90,18 +90,18 @@
 	extend(Game.prototype, {
 
 		// Create the field, all the cells and their neighbours
-		init: function (width, height, wraps) {
+		init: function (wide, high, wraps) {
 			var x = 0,
 				y = 0,
 				self = this;
 
 			// Create a 2D array: [ [], [], ... [], [] ]
-			while (x < width) {
+			while (x < wide) {
 				if (!this.cells[x]) {
 					this.cells[x] = [];
 				}
 				y = 0;
-				while (y < height) {
+				while (y < high) {
 					this.cells[x].push(new Cell());
 					y += 1;
 				}
@@ -130,8 +130,8 @@
 
 		// Iterate through cells in the x-direction first, and then in the y-direction.
 		onCells: function (fn) {
-			var w = this.width,
-				h = this.height,
+			var w = this.wide,
+				h = this.high,
 				x = 0,
 				y = 0;
 			while (y < h) {
@@ -146,8 +146,8 @@
 
 		// Return the cell at the given coordinates
 		getCell: function (x, y) {
-			var w = this.width,
-				h = this.height;
+			var w = this.wide,
+				h = this.high;
 			if (this.wraps) {
 				if (x < 0) {
 					x = w + (x % w);
@@ -188,8 +188,8 @@
 
 		// Canvas drawing
 		canvasDraw: function () {
-			var wide = this.width,
-				high = this.height,
+			var wide = this.wide,
+				high = this.high,
 
 				// Width of each cell in pixels
 				w = canvas.width / wide,
@@ -287,7 +287,7 @@
 			elWidth = options.element.offsetWidth,
 			elHeight = options.element.offsetHeight;
 		extend(game, options);
-		game.init(game.width, game.height, game.wraps);
+		game.init(game.wide, game.high, game.wraps);
 		game.randomise();
 		game.canvasInit(elWidth, elHeight);
 		game.run(game.rate);
