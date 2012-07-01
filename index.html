@@ -31,5 +31,18 @@
 				</div>
 			</div>
 		</div>
+		<script>
+			(function (window) {
+				var game = new GameOfLife({
+					element: document.getElementById('display'),
+					width: 50,
+					height: 50,
+					angle: -Math.PI / 12,
+					rate: 10
+				});
+
+				window.game = game;
+			})(this);
+		</script>
 	</body>
 </html>

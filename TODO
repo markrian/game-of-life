@@ -1,0 +1,15 @@
+ - Add options:
+  - colours
+  - rotation
+ - Add function to get cell from mouse position, with callback support: getCellFromPoint
+ - Add smooth animation transitions from generation to generation
+ - Make canvas the only drawing method
+ - Add classes property to GameOfLife class so that the underlying classes can be accessed for custom work
+ - Add noConflict method
+ - Add ability to adjust the centre of where to draw the field. This way, could track a spaceship, or gliders!
+ - Performance improvements:
+  - Add function getVisibleCells. With this, can draw only those cells which are visible in the canvas. Would probably benefit by calculating the transformation matrix to get out-of-field cells (i.e., wrapped cells) that would get drawn
+  - Possibly useful methods: drawRegion
+  - getCellsFromBounds
+  - isCellInBounds
+  - Where bounds are two points, which define a rectangular region

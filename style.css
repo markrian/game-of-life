@@ -1,0 +1,11 @@
+article, aside, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+#display pre {
+	cursor: default;
+}
+
+#pause {
+	display: none;
+}
