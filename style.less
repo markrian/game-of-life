@@ -12,7 +12,6 @@
 	width: @paneWidth;
 	height: @paneHeight;
 	background: silver;
-	border: 1px solid grey;
 	position: absolute;
 	-moz-transition: all 0.5s ease;
 	box-shadow: 0 0 5px 0 rgba(0,0,0,0.5);
@@ -43,6 +42,25 @@
 		-moz-transform-origin: 0 150%;
 		left: @paneWidth / 2;
 		top: @paneHeight;
+	}
+
+	.controls {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		opacity: 0;
+		background-color: rgba(0, 0, 0, 0.5);
+		-moz-transition: all 0.5s ease;
+
+		&:hover {
+			opacity: 1;
+			-moz-transition: all 0.5s ease;
+		}
+
+		* {
+			margin: 10px;
+			float: right;
+		}
 	}
 
 	&:hover {
