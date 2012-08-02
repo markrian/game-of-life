@@ -3,6 +3,12 @@
 <head>
 <meta charset="utf-8" />
 <title>Game of Life Performance Test</title>
+<style>
+	#display {
+		width: 250px;
+		height: 250px;
+	}
+</style>
 <script src="../src/life.js"></script>
 <script src="../src/patterns.js"></script>
 </head>
@@ -33,10 +39,10 @@
 				cellsPerSecond;
 
 			generationsPerSecond = 1000 * game.generation / TEST_DURATION;
-			cellsPerSecond = game.width * game.height * generationsPerSecond;
+			cellsPerSecond = game.wide * game.high * generationsPerSecond;
 
-			log("Grid size: " + game.width + " \u00d7 " + game.height);
-			log("Total cells: " + (game.width * game.height));
+			log("Grid size: " + game.wide + " \u00d7 " + game.high);
+			log("Total cells: " + (game.wide * game.high));
 			log("Test duration: " + (TEST_DURATION / 1000) + " seconds");
 			log("Generation reached: " + game.generation);
 			log("Generations per second: " + generationsPerSecond + " (target: " + TARGET_GPS + ")");
@@ -45,8 +51,8 @@
 
 		var game = new GameOfLife({
 			element: document.getElementById('display'),
-			width: 50,
-			height: 50,
+			wide: 100,
+			high: 100,
 			angle: -Math.PI / 12,
 			rate: TARGET_GPS
 		});
