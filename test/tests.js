@@ -18,6 +18,8 @@ test( "Basics", function () {
 });
 
 test( "Life cycles", function () {
+	var cell;
+
 	function makeNeighbours(cell, number) {
 		var directions = "n ne e se s sw w nw".split( " " ),
 			neighbours = {},
@@ -31,27 +33,32 @@ test( "Life cycles", function () {
 		cell.neighbours = neighbours;
 	}
 
-	var cell = new GameOfLife.Cell();
-	makeNeighbours( cell, 3 );
-	cell.nextState();
-	cell.age();
+	function TestCell( options ) {
+		var cell = new GameOfLife.Cell();
+		if ( options.alive ) {
+			cell.live();
+			cell.age();
+		}
+
+		if ( options.neighbours ) {
+			makeNeighbours( cell, options.neighbours );
+		}
+
+		cell.nextState();
+		cell.age();
+
+		return cell;
+	}
+
+	cell = TestCell({ neighbours: 3 });
 	ok( cell.alive, "Cells can reproduce" );
 
-	makeNeighbours( cell, randomSample( 0, 1 ) );
-	cell.nextState();
-	cell.age();
+	cell = TestCell({ alive: true, neighbours: randomSample( 0, 1 ) });
 	ok( !cell.alive, "Cells die from under-population" );
 
-	cell = new GameOfLife.Cell();
-	cell.live();
-	cell.age();
-	makeNeighbours( cell, randomSample( 2, 3 ) );
-	cell.nextState();
-	cell.age();
+	cell = TestCell({ alive: true, neighbours: randomSample( 2, 3 ) });
 	ok( cell.alive, "Cells stay alive with the right number of neighbours" );
 
-	makeNeighbours( cell, randomSample( 4, 5, 6, 7, 8 ) );
-	cell.nextState();
-	cell.age();
+	cell = TestCell({ alive: true, neighbours: randomSample( 4, 5, 6, 7, 8 ) });
 	ok( !cell.alive, "Cells die from over-population" );
 });
