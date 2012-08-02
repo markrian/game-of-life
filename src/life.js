@@ -276,7 +276,7 @@
 		}
 	});
 
-	window.GameOfLife = function (options) {
+	var GameOfLife = window.GameOfLife = function (options) {
 
 		if (!options || !options.element) {
 			throw "You must specify the element in which to display the game.";
@@ -296,5 +296,8 @@
 		game.run(game.rate);
 		return game;
 	};
+
+	GameOfLife.Cell = Cell;
+	GameOfLife.Game = Game;
 
 })(this);
