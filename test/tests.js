@@ -70,4 +70,8 @@ test( "Basics", function () {
 	game.init( 10, 10 );
 
 	ok( game.getCell( 0, 0 ) instanceof GameOfLife.Cell, "Can get an instance of a cell by its coords" );
+
+	var cellCount = 0;
+	game.onCells( function (cell) { cellCount++; });
+	equal( cellCount, 100, "Game creates the right number of cells" );
 });
