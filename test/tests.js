@@ -50,19 +50,30 @@ test( "Basics", function () {
 	deepEqual( game.generation, generation + 1, "tick() increments the generation number" );
 });
 
-test( "Unwrapped Game", function () {
-	function countNeighbours(cell) {
-		var neighbours = 0;
-		for (var neighbour in cell.neighbours) {
-			if ( cell.neighbours[neighbour] instanceof GameOfLife.Cell ) {
-				neighbours += 1;
-			}
-		}
-		return neighbours;
-	}
+test( "Wrapped Game", function () {
+	var game = new GameOfLife.Game();
+	game.init( 10, 10 );
 
+	ok( game.wraps, "Games wrap by default" );
+
+	var cell = game.getCell( 9, 9 );
+	deepEqual( countNeighbours( cell ), 8,
+		"Corner cells have eight neighbours in a wrapped game" );
+
+	cell = game.getCell( 5, 4 );
+	deepEqual( countNeighbours( cell ), 8,
+		"Central cells have eight neighbours" );
+
+	cell = game.getCell( 9, 4 );
+	deepEqual( countNeighbours( cell ), 8,
+		"Edge cells have eight neighbours in an wrapped game" );
+});
+
+test( "Unwrapped Game", function () {
 	var game = new GameOfLife.Game();
 	game.init( 10, 10, false );
+
+	ok( !game.wraps, "Games can be set to not wrap" );
 
 	var cell = game.getCell( 9, 9 );
 	deepEqual( countNeighbours( cell ), 3,
