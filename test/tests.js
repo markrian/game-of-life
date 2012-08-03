@@ -84,8 +84,7 @@ test( "Basics", function () {
 	deepEqual( game.generation, generation + 1, "tick() increments the generation number" );
 });
 
-test( "Field", function () {
-
+test( "Unwrapped Game", function () {
 	function countNeighbours(cell) {
 		var neighbours = 0;
 		for (var neighbour in cell.neighbours) {
