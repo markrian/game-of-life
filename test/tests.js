@@ -69,12 +69,12 @@ test( "Basics", function () {
 	var game = new GameOfLife.Game();
 	game.init( 10, 10 );
 
-	ok( game.getCell( 0, 0 ) instanceof GameOfLife.Cell,
-		"Can get an instance of a cell by its coords" );
-
 	var cellCount = 0;
 	game.onCells( function (cell) { cellCount++; });
 	equal( cellCount, 100, "Game creates the right number of cells" );
+
+	ok( game.getCell( 0, 0 ) instanceof GameOfLife.Cell,
+		"Can get an instance of a cell by its coords" );
 
 	ok( !game.running, "Game isn't running initially" );
 	deepEqual( game.population, 0, "Game has no live cells initially" );
