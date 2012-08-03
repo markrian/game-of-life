@@ -94,6 +94,9 @@
 				y = 0,
 				self = this;
 
+			this.wide = wide;
+			this.high = high;
+
 			// Create a 2D array: [ [], [], ... [], [] ]
 			while (x < wide) {
 				if (!this.cells[x]) {
