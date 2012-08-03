@@ -75,4 +75,7 @@ test( "Basics", function () {
 	var cellCount = 0;
 	game.onCells( function (cell) { cellCount++; });
 	equal( cellCount, 100, "Game creates the right number of cells" );
+
+	ok( !game.running, "Game isn't running initially" );
+	deepEqual( game.population, 0, "Game has no live cells initially" );
 });
