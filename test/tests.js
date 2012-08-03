@@ -102,7 +102,7 @@ test( "Unwrapped Game", function () {
 	deepEqual( countNeighbours( cell ), 3,
 		"Corner cells only have three neighbours in an unwrapped game" );
 
-	var cell = game.getCell( 5, 4 );
+	cell = game.getCell( 5, 4 );
 	deepEqual( countNeighbours( cell ), 8,
 		"Central cells have eight neighbours" );
 });
