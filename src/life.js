@@ -96,7 +96,9 @@
 
 			this.wide = wide;
 			this.high = high;
-			this.wraps = wraps;
+			if ( wraps !== undefined ) {
+				this.wraps = wraps;
+			}
 
 			// Create a 2D array: [ [], [], ... [], [] ]
 			while (x < wide) {
