@@ -1,7 +1,3 @@
-function randomSample() {
-	return arguments[Math.floor(Math.random() * arguments.length)];
-}
-
 module( "Cells" );
 
 test( "Basics", function () {
@@ -19,36 +15,6 @@ test( "Basics", function () {
 
 test( "Life cycles", function () {
 	var cell;
-
-	function makeNeighbours(cell, number) {
-		var directions = "n ne e se s sw w nw".split( " " ),
-			neighbours = {},
-			neighbour;
-		while (number--) {
-			neighbour = new GameOfLife.Cell();
-			neighbour.live();
-			neighbour.age();
-			neighbours[directions[number]] = neighbour;
-		}
-		cell.neighbours = neighbours;
-	}
-
-	function TestCell( options ) {
-		var cell = new GameOfLife.Cell();
-		if ( options.alive ) {
-			cell.live();
-			cell.age();
-		}
-
-		if ( options.neighbours ) {
-			makeNeighbours( cell, options.neighbours );
-		}
-
-		cell.nextState();
-		cell.age();
-
-		return cell;
-	}
 
 	cell = TestCell({ neighbours: 3 });
 	ok( cell.alive, "Cells can reproduce" );
