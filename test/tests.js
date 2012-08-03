@@ -62,3 +62,12 @@ test( "Life cycles", function () {
 	cell = TestCell({ alive: true, neighbours: randomSample( 4, 5, 6, 7, 8 ) });
 	ok( !cell.alive, "Cells die from over-population" );
 });
+
+module( "Game" );
+
+test( "Basics", function () {
+	var game = new GameOfLife.Game();
+	game.init( 10, 10 );
+
+	ok( game.getCell( 0, 0 ) instanceof GameOfLife.Cell, "Can get an instance of a cell by its coords" );
+});
