@@ -83,3 +83,27 @@ test( "Basics", function () {
 	game.tick();
 	deepEqual( game.generation, generation + 1, "tick() increments the generation number" );
 });
+
+test( "Field", function () {
+
+	function countNeighbours(cell) {
+		var neighbours = 0;
+		for (var neighbour in cell.neighbours) {
+			if ( cell.neighbours[neighbour] instanceof GameOfLife.Cell ) {
+				neighbours += 1;
+			}
+		}
+		return neighbours;
+	}
+
+	var game = new GameOfLife.Game();
+	game.init( 10, 10, false );
+
+	var cell = game.getCell( 9, 9 );
+	deepEqual( countNeighbours( cell ), 3,
+		"Corner cells only have three neighbours in an unwrapped game" );
+
+	var cell = game.getCell( 5, 4 );
+	deepEqual( countNeighbours( cell ), 8,
+		"Central cells have eight neighbours" );
+});
