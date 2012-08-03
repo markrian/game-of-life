@@ -67,6 +67,15 @@ test( "Wrapped Game", function () {
 	cell = game.getCell( 9, 4 );
 	deepEqual( countNeighbours( cell ), 8,
 		"Edge cells have eight neighbours in an wrapped game" );
+
+	ok( game.getCell( 4, -1 ) === game.getCell( 4, 9 ),
+		"Top-most cell's northern neighbour is in last row, same column" );
+	ok( game.getCell( 4, 10 ) === game.getCell( 4, 0 ),
+		"Bottom-most cell's southern neighbour is in first row, same column" );
+	ok( game.getCell( 10, 4 ) === game.getCell( 0, 4 ),
+		"Right-most cell's eastern neighbour is in first column, same row" );
+	ok( game.getCell( -1, 4 ) === game.getCell( 9, 4 ),
+		"Left-most cell's western neighbour is in last column, same row" );
 });
 
 test( "Unwrapped Game", function () {
