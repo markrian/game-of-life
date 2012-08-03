@@ -78,4 +78,8 @@ test( "Basics", function () {
 
 	ok( !game.running, "Game isn't running initially" );
 	deepEqual( game.population, 0, "Game has no live cells initially" );
+
+	var generation = game.generation;
+	game.tick();
+	deepEqual( game.generation, generation + 1, "tick() increments the generation number" );
 });
