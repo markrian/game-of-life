@@ -142,7 +142,7 @@
 			while (y < h) {
 				x = 0;
 				while (x < w) {
-					fn(this.cells[x][y], x, y);
+					fn(this.getCell( x, y ), x, y);
 					x += 1;
 				}
 				y += 1;
