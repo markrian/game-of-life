@@ -33,11 +33,12 @@ module( "Game" );
 
 test( "Basics", function () {
 	var game = new GameOfLife.Game();
-	game.init( 10, 10 );
+	game.init( 10, 5 );
 
-	var cellCount = 0;
-	game.onCells( function (cell) { cellCount++; });
-	equal( cellCount, 100, "Game creates the right number of cells" );
+	var cells = [];
+	game.onCells( function (cell) { cells.push(cell); } );
+	cells = _.uniq( cells );
+	equal( cells.length, 50, "Game can iterate through all cells" );
 
 	ok( game.getCell( 0, 0 ) instanceof GameOfLife.Cell,
 		"Can get an instance of a cell by its coords" );
